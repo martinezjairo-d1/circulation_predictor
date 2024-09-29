@@ -9,8 +9,14 @@
             const plateNumber = document.getElementById("plateNumber").value;
             const date = document.getElementById("date").value;
 
+            // Validar que los campos no estén vacíos
+            if (!plateNumber || !date) {
+                document.getElementById("result").innerText = "Por favor, llene todos los campos.";
+                return; // Salir de la función si hay campos vacíos
+            }
+
             const response = await fetch('/pico-placa/predictor', {
-                method: 'POST', 
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -19,6 +25,13 @@
 
             const result = await response.text();
             document.getElementById("result").innerText = result;
+        }
+
+        // Función para borrar campos y resultados
+        function clearFields() {
+            document.getElementById("plateNumber").value = '';
+            document.getElementById("date").value = '';
+            document.getElementById("result").innerText = '';
         }
     </script>
 </head>
@@ -31,6 +44,7 @@
     <input type="text" id="date" required>
     <br>
     <button onclick="checkCirculation()">Verificar Circulación</button>
+    <button onclick="clearFields()">Borrar Campos</button> <!-- Botón para borrar -->
     <h2>Resultado:</h2>
     <div id="result"></div>
 </body>
