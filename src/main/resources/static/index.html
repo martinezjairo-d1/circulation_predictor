@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pico y Placa Predictor</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
+    <script>
+        async function checkCirculation() {
+            const plateNumber = document.getElementById("plateNumber").value.toUpperCase(); // Convert to uppercase
+            const date = document.getElementById("date").value;
+
+            // Check plate format (3 capital letters, -, 3 or 4 digits)
+            const platePattern = /^[A-Z]{3}-\d{3,4}$/;
+            if (!platePattern.test(plateNumber)) {
+                alert("Por favor, ingrese un número de placa válido (ej. ABC-123 o ABC-1234).");
+                return; // Exit function if plate is invalid
+            }
+
+            // Check date format (dd/mm/yyyy)
+            const datePattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-9]|2[0-9]|3[01])\/\d{4}$/;
+            if (!datePattern.test(date)) {
+                alert("Por favor, ingrese una fecha válida (dd/mm/yyyy).");
+                return; // Exit function if date is invalid
+            }
+
+            const response = await fetch('/pico-placa/predictor', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ plateNumber, date })
+            });
+
+            const result = await response.text();
+            createResultContainer(result);
+        }
+
+        function createResultContainer(message) {
+            const existingResultContainer = document.getElementById("resultContainer");
+            if (existingResultContainer) {
+                existingResultContainer.remove(); // Remove existing container if it exists
+            }
+
+            const newContainer = document.createElement("div");
+            newContainer.id = "resultContainer";
+            newContainer.className = "result-container"; // Add a class for styling
+            newContainer.innerText = message;
+            document.body.appendChild(newContainer);
+        }
+
+        // Function to delete fields and results
+        function clearFields() {
+            document.getElementById("plateNumber").value = '';
+            document.getElementById("date").value = '';
+            const existingResultContainer = document.getElementById("resultContainer");
+            if (existingResultContainer) {
+                existingResultContainer.remove(); // Remove result container if it exists
+            }
+        }
+
+        // Convert plate input to uppercase automatically
+        function upperCasePlate() {
+            const plateInput = document.getElementById("plateNumber");
+            plateInput.value = plateInput.value.toUpperCase();
+        }
+
+		// Function to handle focus and clear placeholder
+       function clearPlaceholder(inputField, placeholder) {
+           if (inputField.value === placeholder) {
+               inputField.value = '';
+               inputField.style.color = 'black'; // Reset color to black
+           }
+       }
+
+       // Function to handle blur and reset placeholder if empty
+       function resetPlaceholder(inputField, placeholder) {
+           if (inputField.value === '') {
+               inputField.value = placeholder;
+               inputField.style.color = '#bbb'; // Set to light gray
+           }
+       }
+    </script>
+</head>
+<body>
+    <h1> Predictor de Pico y Placa</h1>
+    <div class="container"> <!-- Centered container -->
+        <label for="plateNumber">Número de Placa:</label>
+        <input type="text" id="plateNumber" value="ABC-1234" onfocus="clearPlaceholder(this, 'ABC-1234')" onblur="resetPlaceholder(this, 'ABC-1234')" style="color: #bbb;" oninput="upperCasePlate()">
+        <br>
+        <label for="date">Fecha:</label>
+        <input type="text" id="date" value="dd/mm/yyyy" onfocus="clearPlaceholder(this, 'dd/mm/yyyy')" onblur="resetPlaceholder(this, 'dd/mm/yyyy')" style="color: #bbb;">
+        <br>
+        <button onclick="checkCirculation()">Consultar</button>
+		<button class="clear-button" onclick="clearFields()">Limpiar</button>
+    </div>
+
+</body>
+</html>

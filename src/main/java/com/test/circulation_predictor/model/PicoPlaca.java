@@ -33,6 +33,11 @@ public class PicoPlaca {
         // Get the day of the week as an integer (1=Monday, ..., 7=Sunday)
         int dayOfWeek = date.getDayOfWeek().getValue();
 
+        // If the day is Saturday or Sunday, there are no restrictions.
+        if (dayOfWeek == 6 || dayOfWeek == 7) {
+            return true;
+        }
+        
         // Check if the last digit of the plate is restricted on that weekday
         for (int restrictedDigit : restrictions[dayOfWeek - 1]) {
             if (restrictedDigit == lastDigit) {
