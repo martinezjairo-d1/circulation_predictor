@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pico y Placa Predictor</title>
+    <script>
+        async function checkCirculation() {
+            const plateNumber = document.getElementById("plateNumber").value;
+            const date = document.getElementById("date").value;
+
+            const response = await fetch('/pico-placa/predictor', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ plateNumber, date })
+            });
+
+            const result = await response.text();
+            document.getElementById("result").innerText = result;
+        }
+    </script>
+</head>
+<body>
+    <h1>Pico y Placa Predictor</h1>
+    <label for="plateNumber">Número de Placa:</label>
+    <input type="text" id="plateNumber" required>
+    <br>
+    <label for="date">Fecha (dd/MM/yyyy):</label>
+    <input type="text" id="date" required>
+    <br>
+    <button onclick="checkCirculation()">Verificar Circulación</button>
+    <h2>Resultado:</h2>
+    <div id="result"></div>
+</body>
+</html>

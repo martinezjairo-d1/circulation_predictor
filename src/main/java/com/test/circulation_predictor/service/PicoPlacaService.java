@@ -36,9 +36,9 @@ public class PicoPlacaService {
 
 		// Check if the vehicle can circulate
 		if (picoPlaca.canCirculate(localDate, lastDigit)) {
-			return "Tu vehículo puede circular.";
+			return "Tu vehículo puede circular libremente.";
 		}
-		return "Tu vehículo no puede circular en los siguienets horarios:\n" + "- 7:00 a.m. - 9:30 a.m.\n"
+		return "Tu vehículo no puede circular en los siguientes horarios:\n" + "- 7:00 a.m. - 9:30 a.m.\n"
 				+ "- 4:00 p.m. - 9:00 p.m.";
 	}
 }

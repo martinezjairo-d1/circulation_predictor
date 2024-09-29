@@ -37,7 +37,7 @@ public class PicoPlacaController {
      * @param requestData JSON that containing the license plate number and the date in the format dd/MM/yyyy.
      * @return ResponseEntity containing a message indicating if the vehicle can circulate or not.
      */
-    @GetMapping("/predictor")
+    @PostMapping("/predictor")
     public ResponseEntity<String> canCirculate(@RequestBody Map<String, String> requestData) {
         // Extract the plate number and date from the request data
         String plateNumber = requestData.get("plateNumber");
