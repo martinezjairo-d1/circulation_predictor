@@ -22,6 +22,9 @@ public class PicoPlacaTest {
     public void testCanCirculate_returnsFalse() {
         PicoPlaca picoPlaca = new PicoPlaca();
         
+        System.out.println("-------------------------------------------------");
+        System.out.println("TEST: Running  testCanCirculate_returnsFalse...");
+        
         // Set a restricted date (Monday, 25th, Sep, 2023)
         LocalDate restrictedDate = LocalDate.of(2023, 9, 25);
         
@@ -33,6 +36,7 @@ public class PicoPlacaTest {
 
         // Assert that the result is false, meaning the vehicle cannot circulate
         assertFalse(result, "Expected vehicle to be restricted on this day and last digit.");
+        System.out.println("TEST: testCanCirculate_returnsFalse COMPLETED successfully.");
     }
 
     /**
@@ -42,6 +46,9 @@ public class PicoPlacaTest {
     @Test
     public void testCanCirculate_returnsTrue() {
         PicoPlaca picoPlaca = new PicoPlaca();
+        
+        System.out.println("-------------------------------------------------");
+        System.out.println("TEST: Running  testCanCirculate_returnsTrue...");
         
         // Set a weekend date (Saturday, 30th, Sep, 2023)
         LocalDate saturday = LocalDate.of(2023, 9, 30);
@@ -54,5 +61,7 @@ public class PicoPlacaTest {
 
         // Assert that the result is true, meaning the vehicle can circulate
         assertTrue(result, "Expected vehicle to be free to circulate on weekends.");
+   
+        System.out.println("TEST: testCanCirculate_returnsTrue COMPLETED successfully.");
     }
 }

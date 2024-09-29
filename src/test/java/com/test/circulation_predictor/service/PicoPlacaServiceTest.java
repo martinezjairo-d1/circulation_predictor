@@ -10,52 +10,62 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * This class contains unit tests for the PicoPlacaService class.
- * The PicoPlaca class is mocked to isolate and test the service layer independently.
+ * This class contains unit tests for the PicoPlacaService class. The PicoPlaca
+ * class is mocked to isolate and test the service layer independently.
  * 
  * @author Jairo Martinez
  * @version 1.0
  */
 public class PicoPlacaServiceTest {
 
-    private PicoPlacaService picoPlacaService;
-    private PicoPlaca picoPlaca;
+	private PicoPlacaService picoPlacaService;
+	private PicoPlaca picoPlaca;
 
-    /**
-     * Setup method that runs before each test.
-     * It initializes the PicoPlacaService and mocks the PicoPlaca model.
-     */
-    @BeforeEach
-    public void setup() {
-        // Mock the PicoPlaca model to control its behavior in tests
-        picoPlaca = Mockito.mock(PicoPlaca.class);
-        
-        // Initialize the service to be tested
-        picoPlacaService = new PicoPlacaService();
-    }
+	/**
+	 * Setup method that runs before each test. It initializes the PicoPlacaService
+	 * and mocks the PicoPlaca model.
+	 */
+	@BeforeEach
+	public void setup() {
+		// Mock the PicoPlaca model to control its behavior in tests
+		picoPlaca = Mockito.mock(PicoPlaca.class);
 
-    /**
-     * Test to verify that when the vehicle is restricted, the correct restriction message is returned.
-     * It simulates a vehicle with a restricted license plate number on a restricted date.
-     */
-    @Test
-    public void testCanCirculate_returnsRestrictionMessage() {
-        String plateNumber = "ABC-1232";
-        
-        // Date in dd/MM/yyyy format, which is a restricted date (Monday, 25th, Sep, 2023)
-        String date = "25/09/2023";
-        
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-      
-        LocalDate localDate = LocalDate.parse(date, formatter);
+		// Initialize the service to be tested
+		picoPlacaService = new PicoPlacaService();
+	}
 
-        // Mock the behavior of the PicoPlaca model to return 'false' when the last digit is 2 (restricted on Mondays)
-        Mockito.when(picoPlaca.canCirculate(localDate, 2)).thenReturn(false);
+	/**
+	 * Test to verify that when the vehicle is restricted, the correct restriction
+	 * message is returned. It simulates a vehicle with a restricted license plate
+	 * number on a restricted date.
+	 */
+	@Test
+	public void testCanCirculate_returnsRestrictionMessage() {
+		String plateNumber = "ABC-1232";
 
-        // Execute the canCirculate method of PicoPlacaService and capture the result
-        String result = picoPlacaService.canCirculate(plateNumber, date);
+		System.out.println("-------------------------------------------------");
+		System.out.println("TEST: Running  testCanCirculate_returnsRestrictionMessage...");
 
-        // Verify that the result matches the expected restriction message
-        assertEquals("Tu vehículo no puede circular en los siguientes horarios:\n- 7:00 a.m. - 9:30 a.m.\n- 4:00 p.m. - 9:00 p.m.", result);
-    }
+		// Date in dd/MM/yyyy format, which is a restricted date (Monday, 25th, Sep,
+		// 2023)
+		String date = "25/09/2023";
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		LocalDate localDate = LocalDate.parse(date, formatter);
+
+		// Mock the behavior of the PicoPlaca model to return 'false' when the last
+		// digit is 2 (restricted on Mondays)
+		Mockito.when(picoPlaca.canCirculate(localDate, 2)).thenReturn(false);
+
+		// Execute the canCirculate method of PicoPlacaService and capture the result
+		String result = picoPlacaService.canCirculate(plateNumber, date);
+
+		// Verify that the result matches the expected restriction message
+		assertEquals(
+				"Tu vehículo no puede circular en los siguientes horarios:\n- 7:00 a.m. - 9:30 a.m.\n- 4:00 p.m. - 9:00 p.m.",
+				result);
+
+		System.out.println("TEST: testCanCirculate_returnsRestrictionMessage COMPLETED successfully.");
+	}
 }

@@ -43,6 +43,10 @@ public class PicoPlacaControllerTest {
 	 */
 	@Test
 	public void testCanCirculate_returnsOk() throws Exception {
+
+		System.out.println("-------------------------------------------------");
+		System.out.println("TEST: Running  testCanCirculate_returnsOk...");
+
 		// Set up the mock service to return a specific message when the method
 		// canCirculate() is called.
 		Mockito.when(picoPlacaService.canCirculate("ABC-1234", "25/09/2023"))
@@ -53,5 +57,6 @@ public class PicoPlacaControllerTest {
 				.contentType("application/json").content("{\"plateNumber\": \"ABC-1234\", \"date\": \"25/09/2023\"}"))
 				.andExpect(status().isOk()) // Expects an HTTP 200 OK status in response
 				.andExpect(content().string("Tu vehículo puede circular libremente.")); // Expects the response body to contain the correct message
+		System.out.println("TEST: testCanCirculate_returnsOk COMPLETED successfully.");
 	}
 }
