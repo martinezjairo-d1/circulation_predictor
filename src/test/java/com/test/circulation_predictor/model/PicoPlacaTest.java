@@ -37,7 +37,7 @@ public class PicoPlacaTest {
 
     /**
      * Test to check if the vehicle can circulate on a weekend (Saturday).
-     * There should be no restrictions on weekends regardless of the license plate's last digit.
+     * There should be no restrictions on weekends.
      */
     @Test
     public void testCanCirculate_returnsTrue() {
