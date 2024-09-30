@@ -50,13 +50,13 @@ public class PicoPlacaControllerTest {
 		// Set up the mock service to return a specific message when the method
 		// canCirculate() is called.
 		Mockito.when(picoPlacaService.canCirculate("ABC-1234", "25/09/2023"))
-				.thenReturn("Este día puedes circular libremente en todo el distrito metropolitano de Quito.");
+				.thenReturn("Este día puedes circular libremente en todo el Distrito Metropolitano de Quito.");
 
 		// Perform an HTTP POST request
 		mockMvc.perform(post("/pico-placa/predictor") // Simulates a POST
 				.contentType("application/json").content("{\"plateNumber\": \"ABC-1234\", \"date\": \"25/09/2023\"}"))
 				.andExpect(status().isOk()) // Expects an HTTP 200 OK status in response
-				.andExpect(content().string("Este día puedes circular libremente en todo el distrito metropolitano de Quito.")); // Expects the response body to contain the correct message
+				.andExpect(content().string("Este día puedes circular libremente en todo el Distrito Metropolitano de Quito.")); // Expects the response body to contain the correct message
 		System.out.println("TEST: testCanCirculate_returnsOk COMPLETED successfully.");
 	}
 }
