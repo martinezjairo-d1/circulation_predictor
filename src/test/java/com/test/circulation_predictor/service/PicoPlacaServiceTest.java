@@ -63,7 +63,7 @@ public class PicoPlacaServiceTest {
 
 		// Verify that the result matches the expected restriction message
 		assertEquals(
-				"Tu vehículo no puede circular en los siguientes horarios:\n- 7:00 a.m. - 9:30 a.m.\n- 4:00 p.m. - 9:00 p.m.",
+				"Este día no puedes circular en la zona del Pico y Placa.:\n\nTe recordamos que los horarios de restricción son:\n\n- Matutino: 7:00 a.m. - 9:30 a.m.\n- Vespertino: 4:00 p.m. - 9:00 p.m.",
 				result);
 
 		System.out.println("TEST: testCanCirculate_returnsRestrictionMessage COMPLETED successfully.");

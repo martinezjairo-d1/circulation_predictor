@@ -1,6 +1,9 @@
 package com.test.circulation_predictor.service;
 
 import com.test.circulation_predictor.model.PicoPlaca;
+
+import io.swagger.v3.oas.annotations.Hidden;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,6 +16,7 @@ import java.time.format.DateTimeFormatter;
  * @author Jairo Martinez
  * @version 1.0
  */
+@Hidden
 @Service
 public class PicoPlacaService {
 
@@ -36,9 +40,10 @@ public class PicoPlacaService {
 
 		// Check if the vehicle can circulate
 		if (picoPlaca.canCirculate(localDate, lastDigit)) {
-			return "Tu vehículo puede circular libremente.";
+			return "Este día puedes circular libremente en todo el distrito metropolitano de Quito.";
 		}
-		return "Tu vehículo no puede circular en los siguientes horarios:\n" + "- 7:00 a.m. - 9:30 a.m.\n"
-				+ "- 4:00 p.m. - 9:00 p.m.";
+		return "Este día no puedes circular en la zona del Pico y Placa.:\n\n"
+				+ "Te recordamos que los horarios de restricción son:\n\n" + "- Matutino: 7:00 a.m. - 9:30 a.m.\n"
+				+ "- Vespertino: 4:00 p.m. - 9:00 p.m.";
 	}
 }
